@@ -1,0 +1,502 @@
+# ============================================================
+
+# .gitignore
+
+# Node.js + React Native + Kotlin/Android + Dart + Flutter
+
+# Aplicable a proyectos y subproyectos en cualquier nivel
+
+# ============================================================
+
+# ============================================================
+
+# SISTEMAS OPERATIVOS
+
+# ============================================================
+
+# Windows
+
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Linux
+
+*~
+.directory
+.Trash-*
+.nfs*
+
+# ============================================================
+
+# EDITORES / IDEs
+
+# ============================================================
+
+# Visual Studio Code
+
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# JetBrains / IntelliJ / Android Studio
+
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Eclipse
+
+.classpath
+.project
+.settings/
+
+# NetBeans
+
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+.nb-gradle/
+
+# Sublime Text
+
+*.sublime-workspace
+*.sublime-project
+
+# Vim
+
+*.swp
+*.swo
+*.swn
+
+# Emacs
+
+*~
+#*#
+
+# ============================================================
+
+# VARIABLES DE ENTORNO / SECRETOS
+
+# ============================================================
+
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+
+# Certificados / claves privadas
+
+*.pem
+*.key
+*.p12
+*.pfx
+*.keystore
+*.jks
+
+# IMPORTANTE:
+
+# Si necesitas guardar un keystore de Android en Git,
+
+# elimina *.keystore y *.jks de esta sección.
+
+# ============================================================
+
+# NODE.JS / NPM / YARN / PNPM
+
+# ============================================================
+
+# Dependencias
+
+node_modules/
+**/node_modules/
+
+# Logs
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# NPM
+
+.npm/
+.npmrc.local
+
+# Yarn
+
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+.yarnrc.yml
+
+# PNPM
+
+.pnpm-store/
+
+# Cache
+
+.nyc_output/
+.cache/
+.parcel-cache/
+.turbo/
+.next/
+.nuxt/
+.svelte-kit/
+
+# Builds
+
+dist/
+build/
+out/
+
+# Coverage
+
+coverage/
+*.lcov
+
+# TypeScript
+
+*.tsbuildinfo
+
+# ============================================================
+
+# REACT / REACT NATIVE
+
+# ============================================================
+
+# React Native
+
+**/.expo/
+.expo/
+.expo-shared/
+
+# React Native Metro
+
+.metro-health-check*
+
+# React Native temporary files
+
+*.hprof
+
+# React Native Android build
+
+**/android/.gradle/
+**/android/.idea/
+**/android/build/
+**/android/app/build/
+**/android/.cxx/
+**/android/local.properties
+
+# React Native iOS
+
+**/ios/Pods/
+**/ios/build/
+**/ios/DerivedData/
+**/ios/.xcode.env.local
+**/ios/*.xcworkspace/xcuserdata/
+**/ios/*.xcodeproj/xcuserdata/
+
+# Xcode
+
+DerivedData/
+*.xcuserstate
+*.xcuserdata/
+*.xccheckout
+*.moved-aside
+
+# CocoaPods
+
+Pods/
+Podfile.lock
+
+# Watchman
+
+.watchmanconfig.local
+
+# ============================================================
+
+# KOTLIN / ANDROID / GRADLE
+
+# ============================================================
+
+# Gradle
+
+.gradle/
+**/.gradle/
+
+# Gradle build
+
+build/
+**/build/
+
+# Gradle generated files
+
+.gradle-cache/
+gradle-app.setting
+!gradle/wrapper/gradle-wrapper.jar
+
+# Android Studio
+
+.idea/
+*.iml
+
+# Android generated files
+
+local.properties
+**/local.properties
+
+# Android build outputs
+
+*.apk
+*.aab
+*.ap_
+*.dex
+
+# Android NDK
+
+.externalNativeBuild/
+.cxx/
+**/.cxx/
+
+# Android generated directories
+
+captures/
+.externalNativeBuild/
+
+# Android Studio caches
+
+.navigation/
+*.hprof
+
+# Kotlin
+
+*.class
+.kotlin/
+
+# Kotlin compiler output
+
+out/
+
+# Signing
+
+*.jks
+*.keystore
+
+# ============================================================
+
+# DART
+
+# ============================================================
+
+# Dart tool directory
+
+.dart_tool/
+**/.dart_tool/
+
+# Dart package generated files
+
+.packages
+.pub/
+.pub-cache/
+
+# Dart generated files
+
+*.g.dart
+*.freezed.dart
+
+# Coverage
+
+coverage/
+
+# ============================================================
+
+# FLUTTER
+
+# ============================================================
+
+# Flutter generated files
+
+.flutter-plugins
+.flutter-plugins-dependencies
+.flutter_tool_state
+
+# Flutter build
+
+build/
+**/build/
+
+# Flutter generated plugin registrant
+
+.flutter-plugins-dependencies
+
+# Flutter web
+
+.dart_tool/
+
+# Flutter macOS
+
+**/macos/Flutter/ephemeral/
+
+# Flutter iOS
+
+**/ios/Flutter/ephemeral/
+
+# Flutter Android
+
+**/android/Flutter/ephemeral/
+
+# Flutter Linux
+
+**/linux/flutter/ephemeral/
+
+# Flutter Windows
+
+**/windows/flutter/ephemeral/
+
+# Flutter generated files
+
+**/generated_plugin_registrant.dart
+
+# ============================================================
+
+# WEB / JAVASCRIPT / TYPESCRIPT
+
+# ============================================================
+
+# Source maps
+
+*.map
+
+# Temporary files
+
+*.tmp
+*.temp
+
+# Runtime files
+
+*.pid
+*.seed
+*.pid.lock
+
+# ============================================================
+
+# TESTING
+
+# ============================================================
+
+# Jest
+
+jest-cache/
+.jest/
+
+# Cypress
+
+cypress/videos/
+cypress/screenshots/
+cypress/downloads/
+
+# Playwright
+
+playwright-report/
+test-results/
+
+# ============================================================
+
+# DATABASES / LOCAL DATA
+
+# ============================================================
+
+*.sqlite
+*.sqlite3
+*.db
+*.db-shm
+*.db-wal
+
+# ============================================================
+
+# TEMPORALES / BACKUPS
+
+# ============================================================
+
+*.bak
+*.backup
+*.old
+*.orig
+*.tmp
+*.temp
+*.log
+
+# Temporary folders
+
+tmp/
+temp/
+**/tmp/
+**/temp/
+
+# ============================================================
+
+# GENERATED DOCUMENTATION
+
+# ============================================================
+
+/docs/_build/
+/site/
+
+# ============================================================
+
+# ARCHIVOS DE SISTEMA / CONFIGURACIÓN LOCAL
+
+# ============================================================
+
+*.local
+*.local.*
+local.properties
+**/local.properties
+
+# ============================================================
+
+# ARCHIVOS GRANDES / GENERADOS
+
+# ============================================================
+
+*.min.js
+*.min.css
+
+# Si quieres versionar estos archivos, elimina estas reglas.
+
+# ============================================================
+
+# CARPETAS DE COMPILACIÓN GENERALES
+
+# ============================================================
+
+# Nota:
+
+# Estas reglas funcionan también en subcarpetas.
+
+build/
+dist/
+out/
+
+**/build/
+**/dist/
+**/out/
