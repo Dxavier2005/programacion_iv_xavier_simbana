@@ -1,0 +1,25 @@
+{
+  "name": "programacion_iv_xavier_simbana",
+  "version": "1.0.0",
+  "description": "**Autor:** Xavier Simbaña",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dxavier2005/programacion_iv_xavier_simbana.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Dxavier2005/programacion_iv_xavier_simbana/issues"
+  },
+  "homepage": "https://github.com/Dxavier2005/programacion_iv_xavier_simbana#readme",
+  "dependencies": {
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}
