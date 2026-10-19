@@ -1,4 +1,4 @@
-export abstract class Boxeador {
+abstract class Boxeador {
     abstract atacar(): void;
     descansar(): void {
         console.log("El boxeador recupera energia");

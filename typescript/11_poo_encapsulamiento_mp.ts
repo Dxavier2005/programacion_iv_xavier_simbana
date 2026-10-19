@@ -1,6 +1,6 @@
 // Encapsulamiento
 
-export class Catequista {
+class Catequista {
     private energia: number = 100;
 
     constructor(_dato1?: unknown, _dato2?: unknown, _dato3?: unknown) {}

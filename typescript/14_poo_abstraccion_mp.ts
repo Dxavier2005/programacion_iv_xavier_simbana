@@ -1,4 +1,4 @@
-export abstract class Catequista {
+abstract class Catequista {
     abstract enseñar(): void;
 
     descansar(): void {
