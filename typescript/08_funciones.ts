@@ -1,3 +1,5 @@
+export {};
+
 // Funciones simples
 
 function sumarCreditos(credito1: number, credito2: number): number {
