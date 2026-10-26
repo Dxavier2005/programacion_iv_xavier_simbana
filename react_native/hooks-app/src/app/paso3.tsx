@@ -1,169 +1,153 @@
+// app/index.tsx — agrega la función Paso3
+import type { ComponentRef } from 'react'
 import { useEffect, useRef, useState } from 'react'
-import {
-    Pressable,
-    StyleSheet,
-    Text,
-    TextInput,
-    type TextInputInstance,
-    View,
-} from 'react-native'
+import { Pressable, TextInput as RNTextInput, StyleSheet, Text, TextInput, View } from 'react-native'
 
+export function Paso3() {
+  // ── Uso 1: referencia a un TextInput para foco programático ─────────
+  const inputHostRef = useRef<ComponentRef<typeof RNTextInput>>(null)
+  const inputPuertoRef = useRef<ComponentRef<typeof RNTextInput>>(null)
 
-export default function Paso3() {
- const inputHostRef = useRef<TextInputInstance>(null)
- const inputPuertoRef = useRef<TextInputInstance>(null)
- const intentosSilenciosRef = useRef<number>(0)
+  const [host, setHost] = useState<string>('')
+  const [puerto, setPuerto] = useState<string>('22')
 
+  // Foco automático al montar la pantalla
+  useEffect(() => {
+    inputHostRef.current?.focus()
+  }, [])
 
- const [host, setHost] = useState<string>('')
- const [puerto, setPuerto] = useState<string>('22')
- const [ultimaConexion, setUltimaConexion] = useState<string>('—')
+  // ── Uso 2: contador de intentos silencioso (sin re-render) ───────────
+  const intentosSilenciosRef = useRef<number>(0)
+  const [ultimaConexion, setUltimaConexion] = useState<string>('—')
 
+  function intentarConexion() {
+    intentosSilenciosRef.current += 1   // muta sin re-render
+    // Solo actualizamos el estado (y disparamos re-render) al conectar
+    setUltimaConexion(
+      `${host || 'servidor'}:${puerto} — intento #${intentosSilenciosRef.current}`
+    )
+  }
 
- useEffect(() => {
-   inputHostRef.current?.focus()
- }, [])
+  return (
+    <View style={styles.contenedor}>
+      <Text style={styles.titulo}>Configurar Conexión SSH</Text>
 
+      <View style={styles.formulario}>
+        <Text style={styles.etiqueta}>Host o IP</Text>
+        <TextInput
+          ref={inputHostRef}
+          style={styles.input}
+          value={host}
+          onChangeText={setHost}
+          placeholder="10.0.2.10"
+          placeholderTextColor="#aaa"
+          autoCapitalize="none"
+          returnKeyType="next"
+          onSubmitEditing={() => inputPuertoRef.current?.focus()}
+        />
 
- function intentarConexion() {
-   intentosSilenciosRef.current += 1
-   setUltimaConexion(
-     `${host.trim() || 'servidor'}:${puerto || '22'} — intento #${intentosSilenciosRef.current}`,
-   )
- }
+        <Text style={styles.etiqueta}>Puerto SSH</Text>
+        <TextInput
+          ref={inputPuertoRef}
+          style={styles.input}
+          value={puerto}
+          onChangeText={setPuerto}
+          placeholder="22"
+          placeholderTextColor="#aaa"
+          keyboardType="number-pad"
+          returnKeyType="done"
+        />
+      </View>
 
+      <Pressable
+        style={({ pressed }) => [styles.boton, styles.botonActivo, pressed && { opacity: 0.75 }]}
+        onPress={intentarConexion}
+      >
+        <Text style={styles.textoBoton}>Conectar</Text>
+      </Pressable>
 
- return (
-   <View style={styles.contenedor}>
-     <Text style={styles.titulo}>Configurar Conexión SSH</Text>
-
-
-     <View style={styles.formulario}>
-       <Text style={styles.etiqueta}>Host o IP</Text>
-       <TextInput
-         ref={inputHostRef}
-         style={styles.input}
-         value={host}
-         onChangeText={setHost}
-         placeholder="10.0.2.10"
-         placeholderTextColor="#888"
-         autoCapitalize="none"
-         autoCorrect={false}
-         keyboardType="url"
-         returnKeyType="next"
-         onSubmitEditing={() => inputPuertoRef.current?.focus()}
-       />
-
-
-       <Text style={styles.etiqueta}>Puerto SSH</Text>
-       <TextInput
-         ref={inputPuertoRef}
-         style={styles.input}
-         value={puerto}
-         onChangeText={setPuerto}
-         placeholder="22"
-         placeholderTextColor="#888"
-         keyboardType="number-pad"
-         returnKeyType="done"
-         onSubmitEditing={intentarConexion}
-       />
-     </View>
-
-
-     <Pressable
-       style={({ pressed }) => [
-         styles.boton,
-         pressed && styles.botonPresionado,
-       ]}
-       onPress={intentarConexion}
-     >
-       <Text style={styles.textoBoton}>Conectar</Text>
-     </Pressable>
-
-
-     <View style={styles.resultado}>
-       <Text style={styles.etiqueta}>Último intento</Text>
-       <Text style={styles.detalle}>{ultimaConexion}</Text>
-     </View>
-     <Text style={styles.ayuda}>
-       Los reintentos silenciosos no causan re-renders.
-     </Text>
-   </View>
- )
+      <Text style={styles.detalle}>Último intento: {ultimaConexion}</Text>
+      <Text style={styles.detalle}>
+        (los reintentos silenciosos no causan re-renders)
+      </Text>
+    </View>
+  )
 }
 
-
 const styles = StyleSheet.create({
- contenedor: {
-   flex: 1,
-   justifyContent: 'center',
-   alignItems: 'center',
-   padding: 24,
-   backgroundColor: '#f5f5f5',
-   gap: 16,
- },
- titulo: {
-   fontSize: 20,
-   fontWeight: '700',
-   color: '#1a1a1a',
-   textAlign: 'center',
- },
- formulario: {
-   width: '100%',
-   padding: 16,
-   borderRadius: 10,
-   borderWidth: 1,
-   borderColor: '#ddd',
-   backgroundColor: '#fff',
-   gap: 10,
- },
- etiqueta: {
-   fontSize: 15,
-   fontWeight: '600',
-   color: '#333',
- },
- input: {
-   width: '100%',
-   minHeight: 48,
-   paddingHorizontal: 12,
-   borderRadius: 8,
-   borderWidth: 1,
-   borderColor: '#bbb',
-   backgroundColor: '#fff',
-   color: '#1a1a1a',
-   fontSize: 16,
- },
- boton: {
-   width: '100%',
-   paddingVertical: 14,
-   borderRadius: 8,
-   alignItems: 'center',
-   backgroundColor: '#1565c0',
- },
- botonPresionado: {
-   opacity: 0.75,
- },
- textoBoton: {
-   color: '#fff',
-   fontWeight: '600',
-   fontSize: 15,
- },
- resultado: {
-   width: '100%',
-   padding: 16,
-   borderRadius: 8,
-   backgroundColor: '#fff',
-   gap: 6,
- },
- detalle: {
-   fontSize: 14,
-   color: '#555',
- },
- ayuda: {
-   fontSize: 13,
-   color: '#666',
-   textAlign: 'center',
- },
+  contenedor: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 24,
+    backgroundColor: '#f5f5f5',
+    gap: 16,
+  },
+  titulo: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#1a1a1a',
+  },
+  tarjeta: {
+    width: '100%',
+    padding: 16,
+    borderRadius: 10,
+    borderWidth: 2,
+    backgroundColor: '#fff',
+    gap: 6,
+  },
+  etiqueta: {
+    fontSize: 15,
+    fontWeight: '600',
+    color: '#893006',
+  },
+  latencia: {
+    fontSize: 10,
+    fontWeight: '600',
+    color: '#09e3a5',
+  },
+  ciclos: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: '#1267fb',
+  },
+  detalle: {
+    fontSize: 13,
+    color: '#666',
+  },
+  boton: {
+    width: '100%',
+    paddingVertical: 14,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  botonIniciar: {
+    backgroundColor: '#1565c0',
+  },
+  botonDetener: {
+    backgroundColor: '#de1010',
+  },
+  textoBoton: {
+    color: '#fff',
+    fontWeight: '600',
+    fontSize: 15,
+  },
+  botonSecundario: {
+    paddingVertical: 10,
+  },
+  textoSecundario: {
+    color: '#1565c0',
+    fontSize: 14,
+  },
+  formulario: {
+    width: '100%',
+    gap: 6,
+  },
+  input: {
+    color: '#1565c0',
+    fontSize: 14,
+  },
+  botonActivo: {
+    backgroundColor: '#1565c0',
+  },
 })
-
-

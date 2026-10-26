@@ -1,5 +1,6 @@
 // app/index.tsx — agrega al archivo existente
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { SafeAreaView, ScrollView } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 
 // ─── Paso 4 — ScrollView y SafeAreaView ──────────────────────────────
 
@@ -52,7 +53,7 @@ function TarjetaNodo({ nombre, ip, os, cpu, ram }: typeof SERVIDORES_DEMO[0]) {
   )
 }
 
-function Paso4() {
+export function Paso4() {
   return (
     <SafeAreaView style={estilos4.safeArea}>
       <View style={estilos4.header}>

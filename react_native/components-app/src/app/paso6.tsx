@@ -1,7 +1,9 @@
 // app/index.tsx — agrega al archivo existente
-
-import { useState } from "react"
-import { Modal, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native"
+import { useState } from 'react'
+import { Pressable, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { BadgeEstado } from './paso3'
+import { Card, FilaInfo } from './paso2'
+import { ModalConfirm } from './paso5'
 
 // ─── Paso 6 — Pantalla completa de detalle ───────────────────────────
 
@@ -26,91 +28,7 @@ function BotonAccion({ etiqueta, color, onPress }: AccionProps) {
   )
 }
 
-interface BadgeEstadoProps {
-  estado: string
-  mostrarIcono?: boolean
-  tamaño?: number
-}
-
-function BadgeEstado({ estado, mostrarIcono = false, tamaño = 12 }: BadgeEstadoProps) {
-  return (
-    <View style={estilos6.badgeEstado}>
-      {mostrarIcono && (
-        <View style={[estilos6.puntoEstado, { width: tamaño, height: tamaño }]} />
-      )}
-      <Text style={estilos6.textoEstado}>{estado}</Text>
-    </View>
-  )
-}
-
-interface CardProps {
-  titulo: string
-  subtitulo?: string
-  children: React.ReactNode
-}
-
-function Card({ titulo, subtitulo, children }: CardProps) {
-  return (
-    <View style={estilos6.card}>
-      <Text style={estilos6.cardTitulo}>{titulo}</Text>
-      {subtitulo && <Text style={estilos6.cardSubtitulo}>{subtitulo}</Text>}
-      <View style={estilos6.cardContenido}>{children}</View>
-    </View>
-  )
-}
-
-interface FilaInfoProps {
-  etiqueta: string
-  valor: string
-}
-
-function FilaInfo({ etiqueta, valor }: FilaInfoProps) {
-  return (
-    <View style={estilos6.filaInfo}>
-      <Text style={estilos6.etiquetaInfo}>{etiqueta}</Text>
-      <Text style={estilos6.valorInfo}>{valor}</Text>
-    </View>
-  )
-}
-
-interface ModalConfirmProps {
-  visible: boolean
-  titulo: string
-  mensaje: string
-  etiquetaConfirmar: string
-  onConfirmar: () => void
-  onCancelar: () => void
-}
-
-function ModalConfirm({
-  visible,
-  titulo,
-  mensaje,
-  etiquetaConfirmar,
-  onConfirmar,
-  onCancelar,
-}: ModalConfirmProps) {
-  return (
-    <Modal visible={visible} transparent animationType="fade" onRequestClose={onCancelar}>
-      <View style={estilos6.overlayModal}>
-        <View style={estilos6.contenidoModal}>
-          <Text style={estilos6.tituloModal}>{titulo}</Text>
-          <Text style={estilos6.mensajeModal}>{mensaje}</Text>
-          <View style={estilos6.accionesModal}>
-            <Pressable style={estilos6.botonCancelar} onPress={onCancelar}>
-              <Text style={estilos6.textoCancelar}>Cancelar</Text>
-            </Pressable>
-            <Pressable style={estilos6.botonConfirmar} onPress={onConfirmar}>
-              <Text style={estilos6.textoConfirmar}>{etiquetaConfirmar}</Text>
-            </Pressable>
-          </View>
-        </View>
-      </View>
-    </Modal>
-  )
-}
-
-function Paso6() {
+export function Paso6() {
   const [modalVisible, setModalVisible] = useState(false)
   const [accionPendiente, setAccionPendiente] = useState<string>('')
   const [log, setLog] = useState<string[]>([])
@@ -262,105 +180,5 @@ const estilos6 = StyleSheet.create({
     color: '#2e7d32',
     fontFamily: 'monospace',
     lineHeight: 18,
-  },
-  badgeEstado: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-  },
-  puntoEstado: {
-    borderRadius: 999,
-    backgroundColor: '#2e7d32',
-  },
-  textoEstado: {
-    color: '#2e7d32',
-    fontSize: 12,
-    fontWeight: '600',
-  },
-  card: {
-    backgroundColor: '#ffffff',
-    borderRadius: 12,
-    padding: 16,
-    shadowColor: '#000',
-    shadowOpacity: 0.06,
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  cardTitulo: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: '#263238',
-  },
-  cardSubtitulo: {
-    fontSize: 12,
-    color: '#78909c',
-    marginTop: 4,
-  },
-  cardContenido: {
-    marginTop: 12,
-    gap: 9,
-  },
-  filaInfo: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    gap: 12,
-  },
-  etiquetaInfo: {
-    color: '#607d8b',
-    fontSize: 13,
-  },
-  valorInfo: {
-    color: '#263238',
-    fontSize: 13,
-    fontWeight: '600',
-    textAlign: 'right',
-    flexShrink: 1,
-  },
-  overlayModal: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 24,
-    backgroundColor: 'rgba(0, 0, 0, 0.45)',
-  },
-  contenidoModal: {
-    width: '100%',
-    backgroundColor: '#ffffff',
-    borderRadius: 12,
-    padding: 20,
-  },
-  tituloModal: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: '#263238',
-  },
-  mensajeModal: {
-    marginTop: 10,
-    color: '#546e7a',
-    lineHeight: 20,
-  },
-  accionesModal: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    gap: 12,
-    marginTop: 20,
-  },
-  botonCancelar: {
-    paddingVertical: 10,
-    paddingHorizontal: 12,
-  },
-  textoCancelar: {
-    color: '#546e7a',
-    fontWeight: '600',
-  },
-  botonConfirmar: {
-    backgroundColor: '#1565c0',
-    borderRadius: 8,
-    paddingVertical: 10,
-    paddingHorizontal: 14,
-  },
-  textoConfirmar: {
-    color: '#ffffff',
-    fontWeight: '600',
   },
 })

@@ -1,6 +1,7 @@
 // app/index.tsx — agrega al archivo existente
-import { ReactNode } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import { ReactNode } from 'react'
+
 // ─── Paso 2 — children y composición ────────────────────────────────
 
 interface CardProps {
@@ -9,7 +10,7 @@ interface CardProps {
   children: ReactNode
 }
 
-function Card({ titulo, subtitulo, children }: CardProps) {
+export function Card({ titulo, subtitulo, children }: CardProps) {
   return (
     <View style={estilos2.card}>
       <View style={estilos2.cardCabecera}>
@@ -23,7 +24,7 @@ function Card({ titulo, subtitulo, children }: CardProps) {
   )
 }
 
-function FilaInfo({ etiqueta, valor }: { etiqueta: string; valor: string }) {
+export function FilaInfo({ etiqueta, valor }: { etiqueta: string; valor: string }) {
   return (
     <View style={estilos2.fila}>
       <Text style={estilos2.etiqueta}>{etiqueta}</Text>
@@ -32,7 +33,7 @@ function FilaInfo({ etiqueta, valor }: { etiqueta: string; valor: string }) {
   )
 }
 
-function Paso2() {
+export function Paso2() {
   return (
     <View style={estilos2.fondo}>
       <Text style={estilos2.titulo}>Detalle de nodo</Text>

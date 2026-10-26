@@ -1,36 +1,34 @@
-// app/index.tsx — agrega al archivo existente
-
-import { Pressable, StyleSheet, Text, View } from "react-native"
+import { Pressable, StyleSheet, Text, View } from 'react-native'
 
 // ─── Paso 3 — Props opcionales ───────────────────────────────────────
+
 
 type EstadoServidor = 'activo' | 'degradado' | 'inactivo' | 'error' | 'mantenimiento'
 
 interface BadgeEstadoProps {
   estado: EstadoServidor
-  tamaño?: number          // opcional — valor por defecto: 12
-  mostrarIcono?: boolean   // opcional — valor por defecto: false
-  mostrarTexto?: boolean   // opcional — valor por defecto: true
-
+  tamaño?: number          
+  mostrarIcono?: boolean   
 }
 
+
 const COLOR_ESTADO: Record<EstadoServidor, { fondo: string; texto: string }> = {
-  activo:    { fondo: '#e8f5e9', texto: '#2e7d32' },
-  degradado: { fondo: '#fff8e1', texto: '#f57f17' },
-  inactivo:  { fondo: '#f5f5f5', texto: '#616161' },
-  error:     { fondo: '#fce4ec', texto: '#c62828' },
-  mantenimiento: { fondo: '#e3f2fd', texto: '#1565c0' },
+  activo:        { fondo: '#e8f5e9', texto: '#2e7d32' },
+  degradado:     { fondo: '#fff8e1', texto: '#f57f17' },
+  inactivo:      { fondo: '#f5f5f5', texto: '#616161' },
+  error:         { fondo: '#fce4ec', texto: '#c62828' },
+  mantenimiento: { fondo: '#e1f5fe', texto: '#0288d1' },
 }
 
 const ICONO_ESTADO: Record<EstadoServidor, string> = {
-  activo:    '●',
-  degradado: '◐',
-  inactivo:  '○',
-  error:     '✕',
-  mantenimiento: '⚙',
+  activo:        '●',
+  degradado:     '◐',
+  inactivo:      '○',
+  error:         '✕',
+  mantenimiento: '🔧',
 }
 
-function BadgeEstado({
+export function BadgeEstado({
   estado,
   tamaño = 12,
   mostrarIcono = false,
@@ -55,12 +53,12 @@ interface FilaServidorProps {
   ip: string
   estado: EstadoServidor
   latencia?: number        // ms — opcional
-  onPress?: () => void
+  onPress?: () => void    
 }
 
 function FilaServidor({ nombre, ip, estado, latencia, onPress }: FilaServidorProps) {
   return (
-    <Pressable style={estilos3.fila} onPress={onPress}>
+    <Pressable onPress={onPress} style={estilos3.fila}>
       <View style={estilos3.infoIzq}>
         <Text style={estilos3.nombreServidor}>{nombre}</Text>
         <Text style={estilos3.ipTexto}>{ip}</Text>
@@ -69,21 +67,22 @@ function FilaServidor({ nombre, ip, estado, latencia, onPress }: FilaServidorPro
         {latencia !== undefined && (
           <Text style={estilos3.latencia}>{latencia} ms</Text>
         )}
-        <BadgeEstado estado={estado} mostrarIcono={false} />
+        <BadgeEstado estado={estado} mostrarIcono={false} tamaño={11} />
       </View>
     </Pressable>
   )
 }
 
-function Paso3() {
+export function Paso3() {
   return (
     <View style={estilos3.fondo}>
       <Text style={estilos3.titulo}>Estado de la red</Text>
-      <FilaServidor nombre="web-01"      ip="10.0.2.10" estado="activo"    latencia={8}   />
-      <FilaServidor nombre="db-primary"  ip="10.0.2.20" estado="activo"    latencia={2}   />
-      <FilaServidor nombre="cache-01"    ip="10.0.2.30" estado="degradado" latencia={340} />
-      <FilaServidor nombre="worker-03"   ip="10.0.2.41" estado="error"                    />
-      <FilaServidor nombre="backup-01"   ip="10.0.2.50" estado="inactivo"                 />
+      <FilaServidor nombre="web-01"     ip="10.0.2.10" estado="activo"    latencia={8}   onPress={() => console.log('Tapped web-01')} />
+      <FilaServidor nombre="db-primary" ip="10.0.2.20" estado="activo"    latencia={2}   />
+      <FilaServidor nombre="cache-01"   ip="10.0.2.30" estado="degradado" latencia={340} />
+      <FilaServidor nombre="worker-03"  ip="10.0.2.41" estado="error"     />
+      <FilaServidor nombre="backup-01"  ip="10.0.2.50" estado="inactivo"  />
+      <FilaServidor nombre="maint-01"   ip="10.0.2.60" estado="mantenimiento" />
     </View>
   )
 }

@@ -2,6 +2,7 @@
 import { Text, View } from 'react-native'
 import { Paso1 } from './paso1'
 import { Paso2 } from './paso2'
+import React from 'react'
 
 
 // ┌──────────────────────────────────────────────────────────────────┐
@@ -9,7 +10,7 @@ import { Paso2 } from './paso2'
 // │  1  Paso 1  Texto y vistas básicas                               │
 // │  2  Paso 2  Imágenes y botones                                   │
 // └──────────────────────────────────────────────────────────────────┘
-const PASO = 2
+const PASO: number = 2
 
 export default function Index() {
   switch (PASO) {

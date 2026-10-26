@@ -1,4 +1,5 @@
 // app/index.tsx — reemplaza la función Paso1
+import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
 export function Paso1() {

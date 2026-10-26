@@ -1,50 +1,26 @@
-// app/index.tsx
-import { StyleSheet, Text, View } from 'react-native'
-
-// ┌──────────────────────────────────────────────────────────────────┐
-// │  Cambia este número y guarda (Ctrl+S) para navegar entre pasos. │
-// │  1  Paso 1  Props tipadas — TarjetaServidor                     │
-// │  2  Paso 2  children y composición — Card reutilizable          │
-// │  3  Paso 3  Props opcionales y BadgeEstado                      │
-// │  4  Paso 4  ScrollView y SafeAreaView                           │
-// │  5  Paso 5  Modal de confirmación                               │
-// │  6  Paso 6  Pantalla completa — detalle de servidor             │
-// └──────────────────────────────────────────────────────────────────┘
-const PASO = 1
-
-export default function Index() {
-  switch (PASO) {
-    case 1:
-      return <Paso1 />
-    default:
-      return (
-        <View style={styles.centrado}>
-          <Text>Paso {PASO}: crea el componente primero</Text>
-        </View>
-      )
-  }
-}
-
 // ─── Paso 1 — Props tipadas ──────────────────────────────────────────
+import { StyleSheet, Text, View } from 'react-native'
 
 interface TarjetaServidorProps {
   nombre: string
   ip: string
   sistema: string
   puerto: number
+  region?: string
 }
 
-function TarjetaServidor({ nombre, ip, sistema, puerto }: TarjetaServidorProps) {
+function TarjetaServidor({ nombre, ip, sistema, puerto, region }: TarjetaServidorProps) {
   return (
     <View style={styles.tarjeta}>
       <Text style={styles.nombreServidor}>{nombre}</Text>
       <Text style={styles.datoDireccion}>{ip}:{puerto}</Text>
       <Text style={styles.datoSistema}>{sistema}</Text>
+      <Text style={styles.datoRegion}>{region ?? 'Sin region'}</Text>
     </View>
   )
 }
 
-function Paso1() {
+export function Paso1() {
   return (
     <View style={styles.fondo}>
       <Text style={styles.encabezado}>Inventario de servidores</Text>
@@ -52,19 +28,21 @@ function Paso1() {
         nombre="web-01"
         ip="10.0.2.10"
         sistema="Ubuntu 24.04 LTS"
-        puerto={22}
+        puerto={68}
+        region="SEA"
       />
       <TarjetaServidor
         nombre="db-primary"
         ip="10.0.2.20"
         sistema="Debian 12"
         puerto={5432}
+        region="ET"
       />
       <TarjetaServidor
         nombre="cache-01"
         ip="10.0.2.30"
         sistema="Alpine 3.19"
-        puerto={6379}
+        puerto={6869}
       />
     </View>
   )
@@ -108,9 +86,13 @@ const styles = StyleSheet.create({
   datoDireccion: {
     fontSize: 13,
     color: '#1565c0',
-    fontFamily: 'monospace',
+    fontFamily: 'serif',
   },
   datoSistema: {
+    fontSize: 12,
+    color: '#757575',
+  },
+  datoRegion: {
     fontSize: 12,
     color: '#757575',
   },

@@ -1,155 +1,147 @@
+// app/index.tsx — agrega la función Paso2
 import { useEffect, useState } from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 
-
 type EstadoPing = 'pinging' | 'ok' | 'timeout' | 'inactivo'
 
+export function Paso2() {
+  const [latencia, setLatencia] = useState<number | null>(null)
+  const [estado, setEstado] = useState<EstadoPing>('inactivo')
+  const [activo, setActivo] = useState<boolean>(false)
+  const [ciclos, setCiclos] = useState<number>(0)
+  const [paquetesPerdidos, setPaquetesPerdidos] = useState<number>(0)
 
-export default function Paso2() {
- const [latencia, setLatencia] = useState<number | null>(null)
- const [estado, setEstado] = useState<EstadoPing>('inactivo')
- const [activo, setActivo] = useState<boolean>(false)
- const [ciclos, setCiclos] = useState<number>(0)
- const [paquetesPerdidos, setPaquetesPerdidos] = useState<number>(0)
+  useEffect(() => {
+    if (!activo) return   // no arrancar el intervalo si el ping está detenido
 
+    const intervalo = setInterval(() => {
+      setEstado('pinging')
 
- useEffect(() => {
-   if (!activo) return
+      // Simula latencia de red: número aleatorio entre 10 ms y 200 ms
+      // con un 15 % de probabilidad de timeout
+      setTimeout(() => {
+        const falla = Math.random() < 0.15
+        if (falla) {
+          setLatencia(null)
+          setEstado('timeout')
+          setPaquetesPerdidos(paquetes => paquetes + 1)
+        } else {
+          const ms = Math.floor(Math.random() * 190) + 10
+          setLatencia(ms)
+          setEstado('ok')
+        }
+        setCiclos(c => c + 1)
+      }, 400)
+    }, 500)
 
+    // ← función de limpieza: cancela el intervalo
+    return () => clearInterval(intervalo)
+  }, [activo])   // se re-ejecuta cuando 'activo' cambia
 
-   let timeout: ReturnType<typeof setTimeout> | undefined
+  const colorEstado: Record<EstadoPing, string> = {
+    pinging:  '#1565c0',
+    ok:       '#2e7d32',
+    timeout:  '#c62828',
+    inactivo: '#757575',
+  }
 
+  return (
+    <View style={styles.contenedor}>
+      <Text style={styles.titulo}>Monitor de Ping — nginx-01</Text>
 
-   const intervalo = setInterval(() => {
-     setEstado('pinging')
+      <View style={styles.tarjeta}>
+        <Text style={[styles.etiqueta, { color: colorEstado[estado] }]}>
+          {estado.toUpperCase()}
+        </Text>
+        <Text style={styles.latencia}>
+          {latencia !== null ? `${latencia} ms` : '— ms'}
+        </Text>
+        <Text style={styles.latencia}>
+          {estado == 'timeout' ? `${(paquetesPerdidos / ciclos * 100).toFixed(1) + '%'} ms` : '— ms'}
+        </Text>
+        <Text style={styles.ciclos}>Ciclos completados: {ciclos}</Text>
+        <Text style={styles.detalle}>nginx-01 · 10.0.2.30 · Puerto 80</Text>
+      </View>
 
-
-     timeout = setTimeout(() => {
-       const falla = Math.random() < 0.15
-       if (falla) {
-         setLatencia(null)
-         setEstado('timeout')
-         setPaquetesPerdidos(p => p + 1)
-       } else {
-         const ms = Math.floor(Math.random() * 190) + 10
-         setLatencia(ms)
-         setEstado('ok')
-       }
-       setCiclos(c => c + 1)
-     }, 400)
-   }, 2000)
-
-
-   return () => {
-     clearInterval(intervalo)
-     if (timeout !== undefined) clearTimeout(timeout)
-   }
- }, [activo])
-
-
- const colorEstado: Record<EstadoPing, string> = {
-   pinging: '#1565c0',
-   ok: '#2e7d32',
-   timeout: '#c62828',
-   inactivo: '#757575',
- }
-
-
- const porcentajePerdida =
-   ciclos === 0 ? '0.0%' : `${((paquetesPerdidos / ciclos) * 100).toFixed(1)}%`
-
-
- return (
-   <View style={styles.contenedor}>
-     <Text style={styles.titulo}>Monitor de Ping — nginx-01</Text>
-
-
-     <View style={styles.tarjeta}>
-       <Text style={[styles.etiqueta, { color: colorEstado[estado] }]}>
-         {estado.toUpperCase()}
-       </Text>
-       <Text style={styles.latencia}>
-         {latencia !== null ? `${latencia} ms` : '— ms'}
-       </Text>
-       <Text style={styles.ciclos}>Ciclos completados: {ciclos}</Text>
-       <Text style={styles.ciclos}>Paquetes perdidos: {porcentajePerdida}</Text>
-       <Text style={styles.detalle}>nginx-01 · 10.0.2.30 · Puerto 80</Text>
-     </View>
-
-
-     <Pressable
-       style={({ pressed }) => [
-         styles.boton,
-         activo ? styles.botonDetener : styles.botonIniciar,
-         pressed && { opacity: 0.75 },
-       ]}
-       onPress={() => setActivo(a => !a)}
-     >
-       <Text style={styles.textoBoton}>
-         {activo ? 'Detener ping' : 'Iniciar ping'}
-       </Text>
-     </Pressable>
-   </View>
- )
+      <Pressable
+        style={({ pressed }) => [
+          styles.boton,
+          activo ? styles.botonDetener : styles.botonIniciar,
+          pressed && { opacity: 0.75 },
+        ]}
+        onPress={() => setActivo(a => !a)}
+      >
+        <Text style={styles.textoBoton}>
+          {activo ? 'Detener ping' : 'Iniciar ping'}
+        </Text>
+      </Pressable>
+    </View>
+  )
 }
 
-
 const styles = StyleSheet.create({
- contenedor: {
-   flex: 1,
-   justifyContent: 'center',
-   alignItems: 'center',
-   padding: 24,
-   backgroundColor: '#f5f5f5',
-   gap: 16,
- },
- titulo: {
-   fontSize: 20,
-   fontWeight: '700',
-   color: '#1a1a1a',
-   textAlign: 'center',
- },
- tarjeta: {
-   width: '100%',
-   padding: 16,
-   borderRadius: 10,
-   borderWidth: 1,
-   borderColor: '#ddd',
-   backgroundColor: '#fff',
-   gap: 8,
- },
- etiqueta: {
-   fontSize: 15,
-   fontWeight: '700',
- },
- latencia: {
-   fontSize: 28,
-   fontWeight: '700',
-   color: '#1a1a1a',
- },
- ciclos: {
-   fontSize: 14,
-   color: '#444',
- },
- detalle: {
-   fontSize: 13,
-   color: '#666',
- },
- boton: {
-   width: '100%',
-   paddingVertical: 14,
-   borderRadius: 8,
-   alignItems: 'center',
- },
- botonIniciar: {
-   backgroundColor: '#1565c0',
- },
- botonDetener: {
-   backgroundColor: '#c62828',
- },
- textoBoton: {
-   color: '#fff',
-   fontWeight: '600',
-   fontSize: 15,
- },
+  contenedor: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 24,
+    backgroundColor: '#f5f5f5',
+    gap: 16,
+  },
+  titulo: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#1a1a1a',
+  },
+  tarjeta: {
+    width: '100%',
+    padding: 16,
+    borderRadius: 10,
+    borderWidth: 2,
+    backgroundColor: '#fff',
+    gap: 6,
+  },
+  etiqueta: {
+    fontSize: 15,
+    fontWeight: '600',
+    color: '#893006',
+  },
+  latencia: {
+    fontSize: 10,
+    fontWeight: '600',
+    color: '#09e3a5',
+  },
+  ciclos: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: '#1267fb',
+  },
+  detalle: {
+    fontSize: 13,
+    color: '#666',
+  },
+  boton: {
+    width: '100%',
+    paddingVertical: 14,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  botonIniciar: {
+    backgroundColor: '#1565c0',
+  },
+  botonDetener: {
+    backgroundColor: '#de1010',
+  },
+  textoBoton: {
+    color: '#fff',
+    fontWeight: '600',
+    fontSize: 15,
+  },
+  botonSecundario: {
+    paddingVertical: 10,
+  },
+  textoSecundario: {
+    color: '#1565c0',
+    fontSize: 14,
+  },
 })

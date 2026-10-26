@@ -1,6 +1,7 @@
 // app/index.tsx — agrega al archivo existente
-import { useState } from 'react'
-import { Modal, Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import { useState, ReactNode } from 'react'
+import { Modal, Pressable, SafeAreaView } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 
 // ─── Paso 5 — Modal de confirmación ──────────────────────────────────
 
@@ -14,7 +15,7 @@ interface ModalConfirmProps {
   onCancelar: () => void
 }
 
-function ModalConfirm({
+export function ModalConfirm({
   visible,
   titulo,
   mensaje,
@@ -54,7 +55,7 @@ function ModalConfirm({
   )
 }
 
-function Paso5() {
+export function Paso5() {
   const [modalVisible, setModalVisible] = useState(false)
   const [accionEjecutada, setAccionEjecutada] = useState<string | null>(null)
 

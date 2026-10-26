@@ -1,6 +1,6 @@
 // app/index.tsx
-// @ts-expect-error React Native types are provided by the app's runtime setup.
-import React, { Alert, Image, Pressable, StyleSheet, Text, View } from 'react-native'
+import React from 'react'
+import { Alert, Image, Pressable, StyleSheet, Text, View } from 'react-native'
 
 export function Paso2() {
   return (
@@ -12,7 +12,7 @@ export function Paso2() {
       <Text style={styles.titulo}>Conectar servidor</Text>
 
       <Pressable
-        style={({ pressed }: { pressed: boolean }) => [
+        style={({ pressed }) => [
           styles.boton,
           pressed && styles.botonPresionado,
         ]}
