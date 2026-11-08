@@ -1,5 +1,4 @@
-
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 
 export function Paso3EncabezadoSeccion({ titulo, region }: { titulo: string; region: string }) {
   return (
@@ -11,7 +10,14 @@ export function Paso3EncabezadoSeccion({ titulo, region }: { titulo: string; reg
 }
 
 const styles3 = StyleSheet.create({
-  
+  contenedor: { flex: 1, backgroundColor: '#f0f4f8' },
+  tituloPantalla: {
+    fontSize: 20,
+    fontWeight: '700',
+    padding: 16,
+    backgroundColor: '#1565c0',
+    color: '#fff',
+  },
   encabezado: {
     flexDirection: 'row',
     justifyContent: 'space-between',

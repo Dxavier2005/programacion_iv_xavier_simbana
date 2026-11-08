@@ -1,6 +1,7 @@
 // app/index.tsx — añade debajo de styles4
-import { useState } from 'react'
-import { Alert, ScrollView, Text, StyleSheet, View, SafeAreaView, Pressable, TextInput} from 'react-native'
+import { Alert, ScrollView } from 'react-native'
+import { useRef, useState, type ComponentRef } from 'react'
+import { Pressable, TextInput, View, Text, SafeAreaView, StyleSheet } from 'react-native'
 
 // Regex IPv4 simple: 1-3 dígitos · punto · (x4)
 const REGEX_IPV4 = /^(\d{1,3}\.){3}\d{1,3}$/

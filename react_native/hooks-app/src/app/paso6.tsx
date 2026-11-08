@@ -1,9 +1,11 @@
+
+
 import { useMemo, useState } from 'react';
 import {
-    Button,
-    StyleSheet,
-    Text,
-    View,
+  View,
+  Text,
+  Button,
+  StyleSheet,
 } from 'react-native';
 
 
@@ -14,7 +16,7 @@ interface Producto {
 }
 
 
-export default function App() {
+export default function Paso6() {
   const [productos, setProductos] = useState<Producto[]>([
     { nombre: 'Teclado', precio: 25, cantidad: 2 },
     { nombre: 'Mouse', precio: 15, cantidad: 3 },
@@ -43,6 +45,7 @@ export default function App() {
       ...actuales,
       { nombre: 'Audífonos', precio: 30, cantidad: 1 },
     ]);
+    console.log(productos)
   }
 
 
@@ -95,11 +98,3 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
-
-
-
-
-
-
-
-

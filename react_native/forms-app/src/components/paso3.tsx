@@ -1,14 +1,9 @@
 // app/index.tsx — añade debajo de styles2
-import { SectionList, StyleSheet, Text, View } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context/lib/typescript/src/SafeAreaView'
+import { SectionList } from 'react-native'
+import { Servidor } from './paso1'
+import { Paso1FilaServidor } from './paso1FilaServidor'
 import { Paso3EncabezadoSeccion } from './paso3EncabezadoSeccion'
-
-type Servidor = {
-  id: string
-  nombre: string
-  ip: string
-  activo: boolean
-}
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
 
 type SeccionDatacenter = {
   title: string
@@ -45,20 +40,6 @@ const SECCIONES: SeccionDatacenter[] = [
   },
 ]
 
-function FilaServidor({ servidor }: { servidor: Servidor }) {
-  return (
-    <View style={styles3.filaServidor}>
-      <View style={styles3.infoServidor}>
-        <Text style={styles3.nombreServidor}>{servidor.nombre}</Text>
-        <Text style={styles3.ipServidor}>{servidor.ip}</Text>
-      </View>
-      <Text style={[styles3.estadoServidor, servidor.activo ? styles3.activo : styles3.inactivo]}>
-        {servidor.activo ? 'Activo' : 'Inactivo'}
-      </Text>
-    </View>
-  )
-}
-
 
 
 export function Paso3() {
@@ -68,7 +49,7 @@ export function Paso3() {
       <SectionList<Servidor, SeccionDatacenter>
         sections={SECCIONES}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <FilaServidor servidor={item} />}
+        renderItem={({ item }) => <Paso1FilaServidor servidor={item} />}
         renderSectionHeader={({ section }) => (
           <Paso3EncabezadoSeccion titulo={section.title} region={section.region} />
         )}
@@ -91,17 +72,16 @@ const styles3 = StyleSheet.create({
     backgroundColor: '#1565c0',
     color: '#fff',
   },
-  filaServidor: {
+  encabezado: {
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'space-between',
-    padding: 12,
-    backgroundColor: '#fff',
+    alignItems: 'center',
+    backgroundColor: '#e3f2fd',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderLeftWidth: 3,
+    borderLeftColor: '#1565c0',
   },
-  infoServidor: { gap: 4 },
-  nombreServidor: { fontSize: 16, fontWeight: '600', color: '#263238' },
-  ipServidor: { fontSize: 13, color: '#607d8b' },
-  estadoServidor: { fontSize: 12, fontWeight: '700' },
-  activo: { color: '#2e7d32' },
-  inactivo: { color: '#c62828' },
+  encabezadoTitulo: { fontSize: 13, fontWeight: '700', color: '#0d47a1' },
+  encabezadoRegion: { fontSize: 11, color: '#546e7a', fontFamily: 'monospace' },
 })

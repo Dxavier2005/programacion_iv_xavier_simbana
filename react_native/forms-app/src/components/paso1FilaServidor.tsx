@@ -1,58 +1,26 @@
-// app/index.tsx — añade esto debajo de los estilos
 import { FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import { Servidor } from './paso1Personaje'
 
-type Servidor = {
-  id: string
-  nombre: string
-  ip: string
-  activo: boolean
-}
-
-const SERVIDORES: Servidor[] = [
-  { id: '1', nombre: 'web-01',   ip: '10.0.2.10', activo: true  },
-  { id: '2', nombre: 'web-02',   ip: '10.0.2.11', activo: true  },
-  { id: '3', nombre: 'db-primario', ip: '10.0.3.20', activo: true  },
-  { id: '4', nombre: 'db-replica',  ip: '10.0.3.21', activo: false },
-  { id: '5', nombre: 'cache-01',    ip: '10.0.4.10', activo: true  },
-  { id: '6', nombre: 'cache-02',    ip: '10.0.4.11', activo: false },
-  { id: '7', nombre: 'lb-01',       ip: '10.0.1.1',  activo: true  },
-  { id: '8', nombre: 'bastion',     ip: '203.0.113.5', activo: true },
-]
-
-function FilaServidor({ servidor }: { servidor: Servidor }) {
+export function Paso1FilaPersonaje({ servidor }: { servidor: Servidor }) {
   return (
     <View style={styles1.fila}>
       <View style={styles1.info}>
         <Text style={styles1.nombre}>{servidor.nombre}</Text>
-        <Text style={styles1.ip}>{servidor.ip}</Text>
+        <Text style={styles1.ip}>{servidor.serie}</Text>
       </View>
       <View
         style={[
           styles1.estado,
-          servidor.activo ? styles1.estadoActivo : styles1.estadoInactivo,
+          servidor.poder ? styles1.estadoActivo : styles1.estadoInactivo,
         ]}
       >
         <Text style={styles1.textoEstado}>
-          {servidor.activo ? 'ACTIVO' : 'CAÍDO'}
+          {servidor.poder ? 'ACTIVO' : 'CAÍDO'}
         </Text>
       </View>
     </View>
   )
 }
-
-function Paso1() {
-  return (
-    <SafeAreaView style={styles1.contenedor}>
-      <Text style={styles1.titulo}>Inventario de servidores</Text>
-      <FlatList<Servidor>
-        data={SERVIDORES}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <FilaServidor servidor={item} />}
-      />
-    </SafeAreaView>
-  )
-}
-
 const styles1 = StyleSheet.create({
   contenedor: { flex: 1, backgroundColor: '#f0f4f8' },
   titulo: {

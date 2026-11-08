@@ -1,57 +1,17 @@
 // app/index.tsx — añade debajo de styles1
-import {
-  StyleSheet,
-  ActivityIndicator,
-  View,
-  SafeAreaView,
-  Text,
-  FlatList,
-} from 'react-native'
+import { ActivityIndicator } from 'react-native'
 import { useState, useCallback } from 'react'
-
-type Servidor = {
-  id: string
-  nombre: string
-  ip: string
-  activo: boolean
-}
-
-// Lista inicial de servidores
-const SERVIDORES: Servidor[] = [
-  { id: '1', nombre: 'web-01', ip: '10.0.1.10', activo: true },
-  { id: '2', nombre: 'db-01', ip: '10.0.1.11', activo: true },
-]
+import { FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import { Servidor, SERVIDORES } from './paso1'
+import { Paso1FilaServidor } from './paso1FilaServidor'
+import { Paso2ListaVacia } from './paso2ListaVacia'
+import { Paso2Separador } from './paso2Separador'
 
 // Simula una página extra de servidores (llegará del backend)
 const PAGINA_2: Servidor[] = [
   { id: '9',  nombre: 'monitor-01', ip: '10.0.5.10', activo: true  },
   { id: '10', nombre: 'monitor-02', ip: '10.0.5.11', activo: false },
 ]
-
-function FilaServidor({ servidor }: { servidor: Servidor }) {
-  return (
-    <View style={styles2.fila}>
-      <View>
-        <Text style={styles2.nombre}>{servidor.nombre}</Text>
-        <Text style={styles2.ip}>{servidor.ip}</Text>
-      </View>
-      <Text style={[styles2.estado, servidor.activo ? styles2.activo : styles2.inactivo]}>
-        {servidor.activo ? 'Activo' : 'Inactivo'}
-      </Text>
-    </View>
-  )
-}
-
-function Separador() {
-  return <View style={styles2.separador} />
-}
-
-function ListaVacia() {
-  return <Text style={styles2.vacia}>No hay servidores.</Text>
-}
-
-
-
 
 export function Paso2() {
   const [datos, setDatos] = useState<Servidor[]>(SERVIDORES)
@@ -85,9 +45,9 @@ export function Paso2() {
       <FlatList<Servidor>
         data={datos}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <FilaServidor servidor={item} />}
-        ItemSeparatorComponent={Separador}
-        ListEmptyComponent={<ListaVacia />}
+        renderItem={({ item }) => <Paso1FilaServidor servidor={item} />}
+        ItemSeparatorComponent={Paso2Separador}
+        ListEmptyComponent={<Paso2ListaVacia />}
         refreshing={refrescando}
         onRefresh={onRefresh}
         onEndReached={onEndReached}
@@ -95,7 +55,7 @@ export function Paso2() {
         ListFooterComponent={
           cargandoMas ? (
             <ActivityIndicator style={{ margin: 16 }} color="#1565c0" />
-          ) : <>   </>
+          ) : <></>
         }
       />
     </SafeAreaView>
@@ -116,17 +76,12 @@ const styles2 = StyleSheet.create({
     backgroundColor: '#e0e0e0',
     marginHorizontal: 12,
   },
-  fila: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  vacio: {
+    flex: 1,
     alignItems: 'center',
-    padding: 16,
-    backgroundColor: '#fff',
+    justifyContent: 'center',
+    padding: 40,
   },
-  nombre: { fontSize: 16, fontWeight: '600' },
-  ip: { color: '#666', marginTop: 4 },
-  estado: { fontWeight: '600' },
-  activo: { color: '#2e7d32' },
-  inactivo: { color: '#c62828' },
-  vacia: { padding: 16, textAlign: 'center', color: '#666' },
+  vacioTexto: { fontSize: 16, fontWeight: '600', color: '#555' },
+  vacioSub: { fontSize: 13, color: '#999', marginTop: 6 },
 })

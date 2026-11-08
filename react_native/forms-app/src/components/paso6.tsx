@@ -1,8 +1,9 @@
 // app/index.tsx — añade debajo de styles5
-import { useState, } from 'react'
-import { Alert, KeyboardAvoidingView, Platform, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
+import { KeyboardAvoidingView, Platform } from 'react-native'
+import { useRef, useState, type ComponentRef } from 'react'
+import { Pressable, TextInput, View, Text, SafeAreaView, StyleSheet } from 'react-native'
 
-export default function Paso6() {
+function Paso6() {
   const [nombre, setNombre] = useState('')
   const [ip, setIp] = useState('')
   const [puerto, setPuerto] = useState('22')

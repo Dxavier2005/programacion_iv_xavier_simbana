@@ -1,56 +1,70 @@
 import {
-    createContext,
-    useContext,
-    useState,
-    type ReactNode,
-} from 'react';
+  View,
+  Text,
+  Button,
+  StyleSheet,
+} from 'react-native';
 
 
-interface UsuarioContextType {
- usuario: string;
- setUsuario: (usuario: string) => void;
+import {
+  UsuarioProvider,
+  useUsuario,
+  useCargo,
+} from '../context/UsuarioContext';
+
+
+// Componente que consume el contexto
+function Perfil() {
+  const { usuario, setUsuario } = useUsuario();
+  const { cargo, setCargo } = useCargo();
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.texto}>
+        Hola, {usuario}
+      </Text>
+
+      <Button
+        title="Cambiar usuario"
+        onPress={() =>
+          setUsuario('Homero Simpson')
+        }
+      />
+
+      <Text style={styles.texto}>
+        Cargo, {cargo}
+      </Text>
+      
+      <Button
+        title="Cambiar cargo"
+        onPress={() =>
+          setCargo('Obrero de Fábrica')
+        }
+      />
+    </View>
+  );
 }
 
 
-const UsuarioContext = createContext<
- UsuarioContextType | undefined
->(undefined);
-
-
-interface UsuarioProviderProps {
- children: ReactNode;
+// Componente principal
+export default function Paso5() {
+  return (
+    <UsuarioProvider>
+      <Perfil />
+    </UsuarioProvider>
+  );
 }
 
 
-export function UsuarioProvider({
- children,
-}: UsuarioProviderProps) {
- const [usuario, setUsuario] = useState<string>(
-   'Francisco'
- );
-
-
- return (
-   <UsuarioContext.Provider
-     value={{ usuario, setUsuario }}
-   >
-     {children}
-   </UsuarioContext.Provider>
- );
-}
-
-
-// 4. Hook personalizado para consumir el contexto
-export function useUsuario(): UsuarioContextType {
- const context = useContext(UsuarioContext);
-
-
- if (context === undefined) {
-   throw new Error(
-     'useUsuario debe utilizarse dentro de UsuarioProvider'
-   );
- }
-
-
- return context;
-}
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  texto: {
+    fontSize: 24,
+    marginBottom: 20,
+  },
+});

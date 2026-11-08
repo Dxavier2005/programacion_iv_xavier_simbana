@@ -1,16 +1,16 @@
 import {
-    memo,
-    useCallback,
-    useState,
+  useState,
+  useCallback,
+  memo,
 } from 'react';
 
 
 import {
-    Button,
-    FlatList,
-    StyleSheet,
-    Text,
-    View,
+  View,
+  Text,
+  Button,
+  FlatList,
+  StyleSheet,
 } from 'react-native';
 
 
@@ -50,7 +50,7 @@ const ProductoItem = memo(
 );
 
 
-export default function App() {
+export default function Paso7() {
   const [productos, setProductos] = useState<Producto[]>([
     { id: 1, nombre: 'Teclado', precio: 25 },
     { id: 2, nombre: 'Mouse', precio: 15 },
@@ -138,5 +138,3 @@ const styles = StyleSheet.create({
     gap: 8,
   },
 });
-
-
