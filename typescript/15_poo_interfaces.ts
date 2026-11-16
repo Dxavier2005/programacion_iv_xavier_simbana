@@ -3,10 +3,7 @@ interface  ParticipanteTorneo{
     nivelPoder: number;
     presentarTecnica(): void;
     transformarse(): void;
-
-
 }
-
 class Goku implements ParticipanteTorneo{
     nombre = "Goku";
     nivelPoder = 9000;
@@ -18,9 +15,6 @@ class Goku implements ParticipanteTorneo{
         console.log(`Transformacion`);
     }
 }
-
-
-
 class Vegeta implements ParticipanteTorneo{
     nombre = "Vegeta";
     nivelPoder = 8500;
@@ -34,7 +28,6 @@ class Vegeta implements ParticipanteTorneo{
 
 const goku = new Goku();
 const vegeta = new Vegeta();
-
 goku.transformarse();
 vegeta.transformarse();
 goku.presentarTecnica();

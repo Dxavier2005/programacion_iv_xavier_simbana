@@ -1,46 +1,44 @@
-fun main (){
-    val portal  = 2
-    when(portal){
-        1 -> println("Destino: Tierra")
-        2 -> println("Destino: Marte")
-        3 -> println("Destino: Saturno")
-        else -> println("Portal no disponible")
+fun main(){
+    val portal = 2
+    when (portal){
+        1-> println("Destino:Tierra")
+        2-> println("Destino:Marte")
+        3-> println("Destino:Saturno")
+        else -> println("Portal No disponible")
     }
 
-    print("Icluya el dia (1-7)")
+    print("Incluya del dia (1-7)")
     val dia = readLine()!!.toInt()
     when(dia){
-        1,2,3,4,5 -> println("día de experimentos")
-        6,7 -> println("día de descanso")
-        else -> println("día inválido")
+        1,2,3,4,5-> println("dia de experimentos")
+        6,7-> println("Dia de descanso")
+        else-> println("Dia invalido")
     }
 
-    print("Ingrese la enrgia del portal")
+    print("Ingrese la energía del Portal")
     val energia = readLine()!!.toInt()
     when(energia){
-        in 0..39 -> println("Energia baja")
-        in 80..100-> println("Energia Alta")
-        else -> println("día inválido")
+        in 0..39 -> println("Energía baja")
+        in 40..79 -> println("Energía media")
+        in 80..100 -> println("Energía Alta")
+        else -> println("Energia inválida")
     }
-
-    // TRabajo con when
-
+/*Trabajo con condicionales y comentarios con when */
     val energiaNuclear = 80
-    val motorActivo = true
-    val costoViaje=40
-
-    /*
-    trabajo con condicionales y comentarios
-    con when */
-    when{
-        energiaNuclear >= costoViaje && motorActivo -> {
-            val restanete = energiaNuclear - costoViaje
+    val motorActivo= true
+    val costoViaje= 40
+    when {
+        energiaNuclear >= costoViaje && motorActivo->{
+            val restante = energiaNuclear - costoViaje
             println("Viaje Autorizado")
-            println("Energia restante: $restanete")
+            println("Energia Restante $restante")
         }
-        energiaNuclear < costoViaje && motorActivo -> println("Energia insuficiente")
-        !motorActivo -> println("Motor inactivo")
+
+        energiaNuclear<costoViaje && motorActivo -> {
+            println("Energia Isuficiente")
+        }
+        motorActivo->{
+            println("El motor esta apagado")
+        }
     }
 }
-
-

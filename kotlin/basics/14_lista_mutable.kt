@@ -1,55 +1,42 @@
-fun main (){
-    val portales = mutableListOf("Tierra", "Marte", "Saturno")
+fun main(){
+    val portales = mutableListOf("Tierra","Marte"."Saturno")
 
     var option: Int
-    do {
-
-        println("Laboratorio de Simbana Dario")
-        println("1. Agregar portal")
-        println("2. Mostrar portal")
-        println("3. MOdificar portal")
-        println("4. Eliminar portal")
-        println("5. Agegar portal")
+    do{
+        println("Laboratorio de Apellido Nombre")
+        println("1. Agregar Potal")
+        println("2. Mostrar Portal")
+        println("3. Modificar Potal")
+        println("4. Agregar Potal")
+        println("5. Salir")
         option = readLine()!!.toInt()
-        
-        when(option){
-            1 -> {
-                val nombre = readLine()!!
+        while(option){
+            1-> {
+                val nombre =readLine()!!
                 portales.add(nombre)
                 println("Portal incluido")
             }
-            2 -> {
-                println("Portales ")
-                for (portal in portales){
-                    println("portal: $portal")
+            2-> {
+                println("Portales")
+                for(portal in portales){
+                    println("Portal: $portal")
                 }
             }
-            3 -> {
+            3-> {
                 println("Actualizar")
-                println("Indice amodificar")
-                val indice = readLien()!!
-                if (indice in portales.indice){
-                    print("nuevo nombre")
-                    val nuevoNombre = readLine()!!
-                    portales[indice] = nuevoNombre
-                    println("Portal actualizado")
+                println("Indice a modificar")
+                val indice = readLine()!!
+                if(indice in portales.){
+                    println("nuevo nombre")
+                    val nuevoNombre=readLine()!!
+                    println("portal actualizado")
+                }else{
+                    println("Indice no valido")
                 }
             }
-            4 -> {
-                println("Ingrese el nombre del portal a eliminar")
-                val portal = readLine()!!.toString()
-                if (portales.contains(portal)){
-                    portales.remove(portal)
-                    println("Portal eliminado")
-                } else {
-                    println("Portal no encontrado")
-                } else{
-                    println("Indice no valido
-                }
+            4-> {
+                
             }
-            
         }
-
-    } while (option != 5)    
-
     }
+}

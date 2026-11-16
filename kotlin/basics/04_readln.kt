@@ -1,22 +1,28 @@
 fun main() {
-    println("Inputs en terminal REPL")
-    println("¿Cómo te llamas?")
+    println("Inputs de terminal readline")
+    println("Como te llamas")
+    
+
     val nombre = readLine()
-    println("Welcome a otro universo: $nombre")
+    
+    println("Welcome a otro universo : $nombre")
 
 
-    println("Cristales de Rick:")
+    println("Cristales de Rick")
     val cristalesRick = readLine()!!.toInt()
-    println("Cristales de Morty:")
+    println("Cristales de Morty")
     val cristalesMorty = readLine()!!.toInt()
-    val total = cristalesRick + cristalesMorty
-    println("Total de cristales: $total") 
+    val total = cristalesRick+cristalesMorty
+    println("Total de cristales: $total")
 
-    println("CAlculadora de Energia")
-    println ("Energia Inicial")
+
+    println("Calculadora de Energia")
     val energiaInicial = readLine()!!.toInt()
-    println ("Energia COnsumida:")
+    println("Energia Cinsumida: ")
     val energiaConsumida = readLine()!!.toInt()
-    val energiaREstante = energiaInicial - energiaConsumida
-    println("Energia Restante: $energiaREstante")
-}   
+    val energiaRestante = energiaInicial- energiaConsumida
+    println("Energia Restante: $energiaRestante")
+
+    
+
+}

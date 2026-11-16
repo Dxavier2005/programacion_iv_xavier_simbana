@@ -1,4 +1,3 @@
-
 class 
 Boxeador {
     golpeador(): void {
@@ -6,7 +5,6 @@ Boxeador {
 
     }
 }
-
 
 class Rocky extends Boxeador {
     golpear() {
@@ -17,7 +15,6 @@ class Rocky extends Boxeador {
 
     }
 }
-
 class Apollo extends Boxeador {
     golpear() {
         throw new Error("Method not implemented.");
@@ -27,8 +24,6 @@ class Apollo extends Boxeador {
 
     }
 }
-
-
 const rocky = new Rocky();
 rocky.golpear();
 rocky.golpeEspecial();
