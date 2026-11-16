@@ -500,3 +500,4 @@ out/
 **/build/
 **/dist/
 **/out/
+*.zip
